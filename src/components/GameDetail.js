@@ -4,14 +4,24 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 // redux
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const GameDetail = () => {
+     const history = useHistory();
+     // exit detail
+     const exitDetailHandler = (e) => {
+          const element = e.target;
+          if(element.classList.contains("shadow")){
+               document.body.style.overflow = "auto";
+               history.push("/"); // it's like a link to somewhere
+          }
+     }
      // data
      const {game, screenshots, isLoading} = useSelector((state) => state.detail);
      return(
           <>
           {!isLoading && (
-               <CardShadow>
+               <CardShadow className="shadow" onClick={exitDetailHandler}>
                     <Detail>
                          <Stats>
                               <div className="rating">
@@ -52,6 +62,7 @@ const CardShadow = styled(motion.div)`
      background: rgba(0, 0, 0, 0.5); // we have an opacity of 0.5
      position: fixed;
      top: 0;
+     left: 0;
      &::-webkit-scrollbar{
           width: 0.5rem;
      }
