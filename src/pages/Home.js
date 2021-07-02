@@ -20,7 +20,7 @@ const Home = () => {
           dispatch(loadGames());
      }, [dispatch]);
      // get the data back
-     const {popular, newGames, upcoming} = useSelector((state) => state.games); // we just extract the popular games, new games and upcoming games
+     const {popular, newGames, upcoming, searched} = useSelector((state) => state.games); // we just extract the popular games, new games and upcoming games
      console.log(popular);
      return(
           <GameList>
@@ -28,6 +28,22 @@ const Home = () => {
                     <AnimatePresence> {/*We wrap the component we want to transition to*/}
                          { pathId && <GameDetail pathId={pathId}/> }
                     </AnimatePresence>
+                    {searched.length ? (
+                         <div className="searched">
+                              <h2>Searched Games</h2>
+                              <Games>
+                                   {searched.map(game => (
+                                        <Game 
+                                             name={game.name} 
+                                             released={game.released} 
+                                             id={game.id}
+                                             image={game.background_image}
+                                             key={game.id}
+                                        />
+                                   ))}
+                              </Games>
+                         </div>
+                    ) : ("")}
                     <h2>Upcoming Games</h2>
                     <Games>
                          {upcoming.map(game => (
