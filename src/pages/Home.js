@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 // styling
 import styled from "styled-components";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
+import { fadeIn } from "../animations";
 // Redux
 import {useDispatch, useSelector} from "react-redux";
 import {loadGames} from "../actions/gamesAction";
@@ -23,7 +24,7 @@ const Home = () => {
      const {popular, newGames, upcoming, searched} = useSelector((state) => state.games); // we just extract the popular games, new games and upcoming games
      console.log(popular);
      return(
-          <GameList>
+          <GameList variants={fadeIn} initial="hidden" animate="show">
                <AnimateSharedLayout type="crossfade">
                     <AnimatePresence> {/*We wrap the component we want to transition to*/}
                          { pathId && <GameDetail pathId={pathId}/> }
